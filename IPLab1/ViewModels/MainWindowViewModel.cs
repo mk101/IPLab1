@@ -41,7 +41,7 @@ public class MainWindowViewModel : NotifyPropertyChanged
             {
                 return;
             }
-            Image = grayscaleFilter.ApplyFilter((BitmapImage)Image);
+            Image = ConvertService.WritableBitmapToBitmapImage(grayscaleFilter.ApplyFilter((BitmapImage)Image));
         });
         
         AverageFilterCommand = new RelayCommand(() =>
@@ -50,7 +50,7 @@ public class MainWindowViewModel : NotifyPropertyChanged
             {
                 return;
             }
-            Image = averageFilter.ApplyFilter((BitmapImage) Image);
+            Image = ConvertService.WritableBitmapToBitmapImage(averageFilter.ApplyFilter((BitmapImage) Image));
         });
 
         AutoContrastFilterCommand = new RelayCommand((() =>
@@ -59,7 +59,7 @@ public class MainWindowViewModel : NotifyPropertyChanged
             {
                 return;
             }
-            Image = autoContrastFilter.ApplyFilter((BitmapImage) Image);
+            Image = ConvertService.WritableBitmapToBitmapImage(autoContrastFilter.ApplyFilter((BitmapImage) Image));
         }));
     }
 
