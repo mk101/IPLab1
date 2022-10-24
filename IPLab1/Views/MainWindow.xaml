@@ -30,6 +30,7 @@
                 <MenuItem Header="Black" Command="{Binding BlackNoiseCommand}"/>
                 <MenuItem Header="Exponential" Command="{Binding ExponentialNoiseCommand}"/>
                 <MenuItem Header="Alfa trimmed mean" Command="{Binding AlfaTrimmedMeanCommand}"/>
+                <MenuItem Header="Gauss method" Command="{Binding GaussMethodCommand}"/>
             </MenuItem>
         </Menu>
         

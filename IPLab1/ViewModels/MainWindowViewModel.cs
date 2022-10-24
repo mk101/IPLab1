@@ -27,6 +27,7 @@ public class MainWindowViewModel : NotifyPropertyChanged
     public RelayCommand ExponentialNoiseCommand { get; }
     
     public RelayCommand AlfaTrimmedMeanCommand { get; }
+    public RelayCommand GaussMethodCommand { get; }
 
     public MainWindowViewModel()
     {
@@ -40,6 +41,7 @@ public class MainWindowViewModel : NotifyPropertyChanged
         var expNoise = new ExponentialNoise(.05);
 
         var alfa = new AlfaTrimmedMeanFilter(3, 3);
+        var gauss = new GaussMethod(0.5, 1);
         
         OpenFileCommand = new RelayCommand(() => Image = fileManager.Open());
         SaveFileCommand = new RelayCommand(() => fileManager.Save(Image as BitmapImage));
@@ -97,6 +99,16 @@ public class MainWindowViewModel : NotifyPropertyChanged
             }
             
             Image = ConvertService.WritableBitmapToBitmapImage(alfa.ApplyFilter((BitmapImage) Image));
+        });
+
+        GaussMethodCommand = new RelayCommand(() =>
+        {
+            if (Image is null)
+            {
+                return;
+            }
+            
+            Image = ConvertService.WritableBitmapToBitmapImage(gauss.ApplyFilter((BitmapImage) Image));
         });
     }
 
