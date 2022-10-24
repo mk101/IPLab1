@@ -1,4 +1,5 @@
-﻿using System.Windows.Media;
+﻿using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using IPLab1.Common;
 using IPLab1.Models;
@@ -28,6 +29,11 @@ public class MainWindowViewModel : NotifyPropertyChanged
     
     public RelayCommand AlfaTrimmedMeanCommand { get; }
     public RelayCommand GaussMethodCommand { get; }
+    
+    public RelayCommand SetFirstImageCommand { get; }
+    public RelayCommand SetSecondImageCommand { get; }
+    public RelayCommand PSNRCommand { get; }
+    public RelayCommand SSIMCommand { get; }
 
     public MainWindowViewModel()
     {
@@ -42,6 +48,8 @@ public class MainWindowViewModel : NotifyPropertyChanged
 
         var alfa = new AlfaTrimmedMeanFilter(3, 3);
         var gauss = new GaussMethod(0.5, 1);
+
+        var ie = new ImageEvaluation(1);
         
         OpenFileCommand = new RelayCommand(() => Image = fileManager.Open());
         SaveFileCommand = new RelayCommand(() => fileManager.Save(Image as BitmapImage));
@@ -109,6 +117,38 @@ public class MainWindowViewModel : NotifyPropertyChanged
             }
             
             Image = ConvertService.WritableBitmapToBitmapImage(gauss.ApplyFilter((BitmapImage) Image));
+        });
+
+        SetFirstImageCommand = new RelayCommand(() =>
+        {
+            BitmapImage? image = fileManager.Open();
+            if (image is null)
+            {
+                return;
+            }
+
+            ie.SetImage1(image);
+        });
+        
+        SetSecondImageCommand = new RelayCommand(() =>
+        {
+            BitmapImage? image = fileManager.Open();
+            if (image is null)
+            {
+                return;
+            }
+
+            ie.SetImage2(image);
+        });
+
+        PSNRCommand = new RelayCommand(() =>
+        {
+            MessageBox.Show($"PSNR is {ie.PSNR()}", "PSNR");
+        });
+        
+        SSIMCommand = new RelayCommand(() =>
+        {
+            MessageBox.Show($"SSIM is {ie.SSIM()}", "SSIM");
         });
     }
 

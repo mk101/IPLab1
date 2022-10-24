@@ -32,6 +32,12 @@
                 <MenuItem Header="Alfa trimmed mean" Command="{Binding AlfaTrimmedMeanCommand}"/>
                 <MenuItem Header="Gauss method" Command="{Binding GaussMethodCommand}"/>
             </MenuItem>
+            <MenuItem Header="Evaluation">
+                <MenuItem Header="Set first image" Command="{Binding SetFirstImageCommand}"/>
+                <MenuItem Header="Set second image" Command="{Binding SetSecondImageCommand}"/>
+                <MenuItem Header="PSNR" Command="{Binding PSNRCommand}"/>
+                <MenuItem Header="SSIM" Command="{Binding SSIMCommand}"/>
+            </MenuItem>
         </Menu>
         
         <Image 
