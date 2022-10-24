@@ -28,7 +28,8 @@
             </MenuItem>
             <MenuItem Header="Noises">
                 <MenuItem Header="Black" Command="{Binding BlackNoiseCommand}"/>
-                <MenuItem Header="Exponential" Command="{Binding ExponentialNoise}"/>
+                <MenuItem Header="Exponential" Command="{Binding ExponentialNoiseCommand}"/>
+                <MenuItem Header="Alfa trimmed mean" Command="{Binding AlfaTrimmedMeanCommand}"/>
             </MenuItem>
         </Menu>
         

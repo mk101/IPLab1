@@ -24,7 +24,9 @@ public class MainWindowViewModel : NotifyPropertyChanged
     public RelayCommand AverageFilterCommand { get; }
     public RelayCommand AutoContrastFilterCommand { get; }
     public RelayCommand BlackNoiseCommand { get; }
-    public RelayCommand ExponentialNoise { get; }
+    public RelayCommand ExponentialNoiseCommand { get; }
+    
+    public RelayCommand AlfaTrimmedMeanCommand { get; }
 
     public MainWindowViewModel()
     {
@@ -36,6 +38,8 @@ public class MainWindowViewModel : NotifyPropertyChanged
 
         var blackNoise = new BlackNoise(4242);
         var expNoise = new ExponentialNoise(.05);
+
+        var alfa = new AlfaTrimmedMeanFilter(3, 3);
         
         OpenFileCommand = new RelayCommand(() => Image = fileManager.Open());
         SaveFileCommand = new RelayCommand(() => fileManager.Save(Image as BitmapImage));
@@ -76,13 +80,23 @@ public class MainWindowViewModel : NotifyPropertyChanged
             Image = ConvertService.WritableBitmapToBitmapImage(blackNoise.ApplyFilter((BitmapImage) Image));
         });
 
-        ExponentialNoise = new RelayCommand(() =>
+        ExponentialNoiseCommand = new RelayCommand(() =>
         {
             if (Image is null)
             {
                 return;
             }
             Image = ConvertService.WritableBitmapToBitmapImage(expNoise.ApplyFilter((BitmapImage) Image));
+        });
+
+        AlfaTrimmedMeanCommand = new RelayCommand(() =>
+        {
+            if (Image is null)
+            {
+                return;
+            }
+            
+            Image = ConvertService.WritableBitmapToBitmapImage(alfa.ApplyFilter((BitmapImage) Image));
         });
     }
 

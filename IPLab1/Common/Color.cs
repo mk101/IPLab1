@@ -1,4 +1,6 @@
-﻿namespace IPLab1.Common;
+﻿using System;
+
+namespace IPLab1.Common;
 
 public struct Color
 {
@@ -19,4 +21,15 @@ public struct Color
     public byte G => Green;
     public byte B => Blue;
     public byte A => Alpha;
+    
+    public byte I {
+        get
+        {
+            if (R != G || G != B)
+            {
+                throw new InvalidOperationException("Must be grayscale color");
+            }
+            return R;
+        }
+    }
 }
